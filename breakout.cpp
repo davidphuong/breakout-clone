@@ -3,19 +3,26 @@
 #include <SFML/Window.hpp>
 
 #include "PS3Controller.h"
+#include "Paddle.h"
 
 void process_input();
 void update();
 void render();
 
-// sf::RenderWindow main_window(sf::VideoMode(200, 200), "Breakout!");
-sf::RenderWindow main_window(sf::VideoMode(1024, 768), "Breakout!");
+const int SCREEN_WIDTH = 1024;
+const int SCREEN_HEIGHT = 768;
+
+sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
+Paddle player(200, 10);
 
 int main(int argc, char* argv[]) {
 
     // Check that joystick #0 is connected.
     if (sf::Joystick::isConnected(0)) {
         std::cout << "Joystick is connected." << std::endl;
+
+        player.set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT - player.get_height());
+
         while (main_window.isOpen()) {
             process_input();
             update();
@@ -66,9 +73,12 @@ void process_input() {
 }
 
 void update() {
-
+    player.update();
 }
 
 void render() {
+    main_window.clear(sf::Color(255, 255, 255));
 
+    player.draw(main_window);    
+    main_window.display();
 }
