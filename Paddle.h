@@ -7,8 +7,9 @@ class Paddle {
     public:
         Paddle(float width, float height);
 
-        void draw(sf::RenderWindow& window);
+        void process_input();
         void update();
+        void draw(sf::RenderWindow& window);
 
         void set_position(float x, float y);
 

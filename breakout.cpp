@@ -2,15 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "Constant.h"
 #include "PS3Controller.h"
 #include "Paddle.h"
 
 void process_input();
 void update();
 void render();
-
-const int SCREEN_WIDTH = 1024;
-const int SCREEN_HEIGHT = 768;
 
 sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
 Paddle player(200, 10);
@@ -60,16 +58,10 @@ void process_input() {
                     std::cout << "CIRCLE" << std::endl;
                     break;
             }
-        } else if (event.type == sf::Event::JoystickMoved) {
-            std::cout << "axis: " <<  event.joystickMove.position << std::endl;
-            if (event.joystickMove.axis == sf::Joystick::X) {
-                // std::cout << "X axis: " <<  event.joystickMove.position << std::endl;
-            }
-            if (event.joystickMove.axis == sf::Joystick::Y) {
-                // std::cout << "Y axis: " << event.joystickMove.position << std::endl;
-            }
         }
     }
+
+    player.process_input();
 }
 
 void update() {
