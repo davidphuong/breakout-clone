@@ -1,6 +1,6 @@
 # Breakout
 
-A Breakout clone written in C++ using SFML 2.1
+A Breakout clone written in C++ using SFML 2.1.
 
 ## Background
 This project was a way for me to learn the basics of game programming.
