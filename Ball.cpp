@@ -1,5 +1,7 @@
 #include "Ball.h"
 #include "Constant.h"
+#include "GameObjectManager.h"
+#include "VisibleGameObject.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -19,24 +21,39 @@ void Ball::update() {
 
     sf::Vector2f current_pos = get_position();
 
-    if (current_pos.x - (get_width() / 2.0) + m_velocity.x < 0) {
-        // If Paddle is going to go past left border,
+    extern GameObjectManager game_object_manager;
+    VisibleGameObject* player = game_object_manager.get_object("player");
+
+    extern bool end_game;
+
+    // Paddle checks
+    if (get_bottom() + m_velocity.y > player->get_top()
+            && current_pos.x > player->get_left()
+            && current_pos.x < player->get_right()) {
+        // If ball is going to collide with the top of the paddle,
+        m_angle = 360 - m_angle;
+    }
+
+    // Boundary checks
+    if (get_left() + m_velocity.x < 0) {
+        // If ball is going to go past left border,
         m_angle = 180 - m_angle;
         if (m_angle < 0) {
             m_angle = 360 + m_angle;
         }
-    } else if (current_pos.x + (get_width() / 2) + m_velocity.x > SCREEN_WIDTH) {
-        // If Paddle is going to go past right border,
+    } else if (get_right() + m_velocity.x > SCREEN_WIDTH) {
+        // If ball is going to go past right border,
         m_angle = 180 - m_angle;
         if (m_angle < 0) {
             m_angle = 360 + m_angle;
         }
 
-    } else if (current_pos.y + (get_height() / 2) + m_velocity.y > SCREEN_HEIGHT) {
-        // If Paddle is going to go past bottom border,
-        m_angle = 360 - m_angle;
-    } else if (current_pos.y - (get_height() / 2) + m_velocity.y < 0) {
-        // If Paddle is going to go past top border,
+    } else if (get_bottom() + m_velocity.y > SCREEN_HEIGHT) {
+        // If ball is going to go past bottom border,
+        // m_angle = 360 - m_angle;
+        end_game = true;
+    } else if (get_top() + m_velocity.y < 0) {
+        // If ball is going to go past top border,
         m_angle = 360 - m_angle;
     }
 
@@ -51,3 +68,4 @@ float Ball::compute_y_component() {
     // Graphics Y axis is the opposite of normal axis Y.
     return -1.0 * static_cast<float>(sin(m_angle * (3.14159265 / 180)));    
 }
+

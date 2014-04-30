@@ -19,6 +19,11 @@ class VisibleGameObject {
         float get_height();
         sf::Vector2f get_position();
 
+        float get_left();
+        float get_right();
+        float get_top();
+        float get_bottom();
+
     protected:
         sf::Sprite m_sprite;
         sf::Vector2f m_velocity;

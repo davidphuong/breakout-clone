@@ -40,3 +40,19 @@ float VisibleGameObject::get_height() {
 sf::Vector2f VisibleGameObject::get_position() {
     return m_sprite.getPosition();
 }
+
+float VisibleGameObject::get_left() {
+    return (get_position().x - (get_width() / 2.0));
+}
+
+float VisibleGameObject::get_right() {
+    return (get_position().x + (get_width() / 2.0));
+}
+
+float VisibleGameObject::get_top() {
+    return (get_position().y - (get_height() / 2.0));
+}
+
+float VisibleGameObject::get_bottom() {
+    return (get_position().y + (get_height() / 2.0));
+}

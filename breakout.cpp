@@ -16,6 +16,7 @@ void render();
 
 sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
 GameObjectManager game_object_manager;
+bool end_game = false;
 
 int main(int argc, char* argv[]) {
 
@@ -35,8 +36,10 @@ int main(int argc, char* argv[]) {
         game_ball->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         game_object_manager.add("ball", game_ball);
 
+        main_window.setFramerateLimit(60);
+
         // Game loop
-        while (main_window.isOpen()) {
+        while (main_window.isOpen() && end_game == false) {
             process_input();
             update();
             render();
