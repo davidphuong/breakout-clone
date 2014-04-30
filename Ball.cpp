@@ -1,59 +1,57 @@
 #include "Ball.h"
-#include "PS3Controller.h"
 #include "Constant.h"
 
-Ball::Ball(float width, float height) :
-    VisibleGameObject(width, height)
-{
-    m_ball.setRadius(width / 2);
-    m_ball.setFillColor(sf::Color::Red);
-    m_ball.setOrigin(m_width / 2, m_height / 2);
-    m_ball.setPosition(0, 0);
+#include <stdlib.h>
+#include <math.h>
+#include <iostream>
+
+Ball::Ball() {
+    m_angle = rand() % 360 + 1;
+    // m_angle = 45;
 }
 
 void Ball::process_input() {
-    sf::Joystick::update();
-    m_velocity.x = 0;
-
-    // Joystick value returns from 0 to 100 in the 1st
-    // and 4th quadrants where 100 being directly right.
-    // Joystick value returns from 0 to -100 in the 2nd
-    // and 3rd quadrants where -100 being directly left.
-    float joystick_value = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
-    m_velocity.x = joystick_value * 0.1;
-
-    // if (sf::Joystick::isButtonPressed(0, PS3::LEFT)) {
-    //     m_velocity.x -= 5.0;
-    // }
-
-    // if (sf::Joystick::isButtonPressed(0, PS3::RIGHT)) {
-    //     m_velocity.x += 5.0;
-    // }
+    // Empty
 }
 
 void Ball::update() {
+    m_velocity.x = 3;
+    m_velocity.y = 3;
+
+    m_velocity.x = m_velocity.x * compute_x_component();
+    m_velocity.y = m_velocity.y * compute_y_component();
+
     sf::Vector2f current_pos = get_position();
 
-    if (current_pos.x - (m_width / 2.0) + m_velocity.x < 0) {
-        // If Ball is going to go past left border,
-        // do nothing
-    } else if (current_pos.x + (m_width / 2) + m_velocity.x > SCREEN_WIDTH) {
-        // If Ball is going to go past right border,
-        // do nothing
-    } else {
-        m_ball.move(m_velocity.x, 0);
+    if (current_pos.x - (get_width() / 2.0) + m_velocity.x < 0) {
+        // If Paddle is going to go past left border,
+        m_angle = 180 - m_angle;
+        if (m_angle < 0) {
+            m_angle = 360 + m_angle;
+        }
+    } else if (current_pos.x + (get_width() / 2) + m_velocity.x > SCREEN_WIDTH) {
+        // If Paddle is going to go past right border,
+        m_angle = 180 - m_angle;
+        if (m_angle < 0) {
+            m_angle = 360 + m_angle;
+        }
+
+    } else if (current_pos.y + (get_height() / 2) + m_velocity.y > SCREEN_HEIGHT) {
+        // If Paddle is going to go past bottom border,
+        m_angle = 360 - m_angle;
+    } else if (current_pos.y - (get_height() / 2) + m_velocity.y < 0) {
+        // If Paddle is going to go past top border,
+        m_angle = 360 - m_angle;
     }
+
+    m_sprite.move(m_velocity.x, m_velocity.y);
 }
 
-void Ball::draw(sf::RenderWindow& window) {
-    window.draw(m_ball);
+float Ball::compute_x_component() {
+    return static_cast<float>(cos(m_angle * (3.14159265 / 180)));    
 }
 
-void Ball::set_position(float x, float y) {
-    m_ball.setPosition(x, y); 
+float Ball::compute_y_component() {
+    // Graphics Y axis is the opposite of normal axis Y.
+    return -1.0 * static_cast<float>(sin(m_angle * (3.14159265 / 180)));    
 }
-
-sf::Vector2f Ball::get_position() {
-    return m_ball.getPosition();
-}
-
