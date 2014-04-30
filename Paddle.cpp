@@ -3,16 +3,12 @@
 #include "Constant.h"
 
 Paddle::Paddle(float width, float height) :
-    m_width(width),
-    m_height(height)
+    VisibleGameObject(width, height)
 {
     m_paddle.setSize(sf::Vector2f(m_width, m_height));
     m_paddle.setFillColor(sf::Color::Black);
     m_paddle.setOrigin(m_width / 2, m_height / 2);
     m_paddle.setPosition(0, 0);
-
-    m_velocity.x = 0;
-    m_velocity.y = 0;
 }
 
 void Paddle::process_input() {
@@ -55,14 +51,6 @@ void Paddle::draw(sf::RenderWindow& window) {
 
 void Paddle::set_position(float x, float y) {
     m_paddle.setPosition(x, y); 
-}
-
-float Paddle::get_width() {
-    return m_width;
-}
-
-float Paddle::get_height() {
-    return m_height;
 }
 
 sf::Vector2f Paddle::get_position() {

@@ -1,9 +1,10 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 
+#include "VisibleGameObject.h"
 #include <SFML/Graphics.hpp>
 
-class Paddle {
+class Paddle : public VisibleGameObject {
     public:
         Paddle(float width, float height);
 
@@ -13,15 +14,10 @@ class Paddle {
 
         void set_position(float x, float y);
 
-        float get_width();
-        float get_height();
         sf::Vector2f get_position();
 
     private:
         sf::RectangleShape m_paddle;
-
-        int m_width;
-        int m_height;
 
         sf::Vector2f m_velocity;
 };
