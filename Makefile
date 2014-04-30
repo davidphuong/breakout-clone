@@ -1,5 +1,5 @@
-breakout: breakout.o Paddle.o VisibleGameObject.o Ball.o GameObjectManager.o
-	g++ breakout.o Paddle.o VisibleGameObject.o Ball.o GameObjectManager.o -o breakout -lsfml-graphics -lsfml-window
+breakout: breakout.o Paddle.o VisibleGameObject.o Ball.o GameObjectManager.o Block.o BlockManager.o
+	g++ breakout.o Paddle.o VisibleGameObject.o Ball.o GameObjectManager.o Block.o BlockManager.o -o breakout -lsfml-graphics -lsfml-window
 
 breakout.o: breakout.cpp
 	g++ -c breakout.cpp
@@ -15,6 +15,12 @@ Ball.o: Ball.h Ball.cpp
 
 GameObjectManager.o: GameObjectManager.h GameObjectManager.cpp
 	g++ -c GameObjectManager.cpp
+
+Block.o: Block.h Block.cpp
+	g++ -c Block.cpp
+
+BlockManager.o: BlockManager.h BlockManager.cpp
+	g++ -c BlockManager.cpp
 
 clean:
 	rm -f *.o breakout
