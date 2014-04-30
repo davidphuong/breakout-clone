@@ -13,6 +13,7 @@
 void process_input();
 void update();
 void render();
+bool is_intersecting(VisibleGameObject* A, VisibleGameObject* B);
 
 sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
 GameObjectManager game_object_manager;
@@ -88,4 +89,9 @@ void render() {
     main_window.clear(sf::Color(255, 255, 255));
     game_object_manager.draw_all(main_window);
     main_window.display();
+}
+
+bool is_intersecting(VisibleGameObject* A, VisibleGameObject* B) {
+    return (A->get_right() >= B->get_left() && A->get_left() <= B->get_right()
+        && A->get_bottom() >= B->get_top() && A->get_top() <= B->get_bottom());
 }

@@ -41,6 +41,10 @@ sf::Vector2f VisibleGameObject::get_position() {
     return m_sprite.getPosition();
 }
 
+sf::Vector2f VisibleGameObject::get_velocity() {
+    return m_velocity;
+}
+
 float VisibleGameObject::get_left() {
     return (get_position().x - (get_width() / 2.0));
 }

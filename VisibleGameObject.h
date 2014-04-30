@@ -17,7 +17,9 @@ class VisibleGameObject {
 
         float get_width();
         float get_height();
+
         sf::Vector2f get_position();
+        sf::Vector2f get_velocity();
 
         float get_left();
         float get_right();
