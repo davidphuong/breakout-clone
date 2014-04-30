@@ -8,15 +8,14 @@
 #include "PS3Controller.h"
 #include "Paddle.h"
 #include "Ball.h"
+#include "GameObjectManager.h"
 
 void process_input();
 void update();
 void render();
 
 sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
-Paddle player;
-Ball game_ball;
-
+GameObjectManager game_object_manager;
 
 int main(int argc, char* argv[]) {
 
@@ -25,12 +24,18 @@ int main(int argc, char* argv[]) {
         std::cout << "Joystick is connected." << std::endl;
         srand(time(NULL));
 
-        player.load("images/paddle.png");
-        player.set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT - player.get_height());
+        // Initializing game objects.
+        Paddle* player = new Paddle;
+        player->load("images/paddle.png");
+        player->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT - player->get_height());
+        game_object_manager.add("player", player);
 
-        game_ball.load("images/ball.png");
-        game_ball.set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        Ball* game_ball = new Ball;
+        game_ball->load("images/ball.png");
+        game_ball->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        game_object_manager.add("ball", game_ball);
 
+        // Game loop
         while (main_window.isOpen()) {
             process_input();
             update();
@@ -70,19 +75,14 @@ void process_input() {
             }
         }
     }
-
-    player.process_input();
 }
 
 void update() {
-    player.update();
-    game_ball.update();
+    game_object_manager.update_all();
 }
 
 void render() {
     main_window.clear(sf::Color(255, 255, 255));
-
-    player.draw(main_window);    
-    game_ball.draw(main_window);
+    game_object_manager.draw_all(main_window);
     main_window.display();
 }

@@ -6,7 +6,7 @@ Paddle::Paddle() {
 
 }
 
-void Paddle::process_input() {
+void Paddle::update() {
     sf::Joystick::update();
     m_velocity.x = 0;
 
@@ -24,9 +24,7 @@ void Paddle::process_input() {
     // if (sf::Joystick::isButtonPressed(0, PS3::RIGHT)) {
     //     m_velocity.x += 5.0;
     // }
-}
 
-void Paddle::update() {
     sf::Vector2f current_pos = get_position();
 
     if (current_pos.x - (get_width() / 2.0) + m_velocity.x < 0) {

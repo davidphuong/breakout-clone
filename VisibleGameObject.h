@@ -10,7 +10,6 @@ class VisibleGameObject {
 
         void load(std::string filename);
 
-        virtual void process_input() = 0;
         virtual void update() = 0;
         void draw(sf::RenderWindow& window);
 

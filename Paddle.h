@@ -8,7 +8,6 @@ class Paddle : public VisibleGameObject {
     public:
         Paddle();
 
-        virtual void process_input();
         virtual void update();
 };
 

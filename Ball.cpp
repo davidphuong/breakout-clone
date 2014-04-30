@@ -10,10 +10,6 @@ Ball::Ball() {
     // m_angle = 45;
 }
 
-void Ball::process_input() {
-    // Empty
-}
-
 void Ball::update() {
     m_velocity.x = 3;
     m_velocity.y = 3;

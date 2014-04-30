@@ -17,10 +17,6 @@ void VisibleGameObject::load(std::string filename) {
     }
 }
 
-void VisibleGameObject::process_input() {
-
-}
-
 void VisibleGameObject::update() {
 
 }

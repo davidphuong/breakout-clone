@@ -8,7 +8,6 @@ class Ball : public VisibleGameObject {
     public:
         Ball();
 
-        void process_input();
         void update();
 
     private:
