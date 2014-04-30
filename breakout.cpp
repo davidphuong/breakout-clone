@@ -12,8 +12,8 @@ void update();
 void render();
 
 sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
-Paddle player(200, 10);
-Ball game_ball(50, 50);
+Paddle player;
+// Ball game_ball(50, 50);
 
 
 int main(int argc, char* argv[]) {
@@ -22,8 +22,9 @@ int main(int argc, char* argv[]) {
     if (sf::Joystick::isConnected(0)) {
         std::cout << "Joystick is connected." << std::endl;
 
+        player.load("images/paddle.png");
         player.set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT - player.get_height());
-        game_ball.set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        // game_ball.set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
         while (main_window.isOpen()) {
             process_input();
@@ -66,18 +67,18 @@ void process_input() {
     }
 
     player.process_input();
-    game_ball.process_input();
+    // game_ball.process_input();
 }
 
 void update() {
     player.update();
-    game_ball.update();
+    // game_ball.update();
 }
 
 void render() {
     main_window.clear(sf::Color(255, 255, 255));
 
     player.draw(main_window);    
-    game_ball.draw(main_window);
+    // game_ball.draw(main_window);
     main_window.display();
 }

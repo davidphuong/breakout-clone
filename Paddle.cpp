@@ -2,13 +2,8 @@
 #include "PS3Controller.h"
 #include "Constant.h"
 
-Paddle::Paddle(float width, float height) :
-    VisibleGameObject(width, height)
-{
-    m_paddle.setSize(sf::Vector2f(m_width, m_height));
-    m_paddle.setFillColor(sf::Color::Black);
-    m_paddle.setOrigin(m_width / 2, m_height / 2);
-    m_paddle.setPosition(0, 0);
+Paddle::Paddle() {
+
 }
 
 void Paddle::process_input() {
@@ -34,25 +29,13 @@ void Paddle::process_input() {
 void Paddle::update() {
     sf::Vector2f current_pos = get_position();
 
-    if (current_pos.x - (m_width / 2.0) + m_velocity.x < 0) {
+    if (current_pos.x - (get_width() / 2.0) + m_velocity.x < 0) {
         // If Paddle is going to go past left border,
         // do nothing
-    } else if (current_pos.x + (m_width / 2) + m_velocity.x > SCREEN_WIDTH) {
+    } else if (current_pos.x + (get_width() / 2) + m_velocity.x > SCREEN_WIDTH) {
         // If Paddle is going to go past right border,
         // do nothing
     } else {
-        m_paddle.move(m_velocity.x, 0);
+        m_sprite.move(m_velocity.x, 0);
     }
-}
-
-void Paddle::draw(sf::RenderWindow& window) {
-    window.draw(m_paddle);
-}
-
-void Paddle::set_position(float x, float y) {
-    m_paddle.setPosition(x, y); 
-}
-
-sf::Vector2f Paddle::get_position() {
-    return m_paddle.getPosition();
 }
