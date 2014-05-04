@@ -9,6 +9,7 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include "GameObjectManager.h"
+#include "BlockManager.h"
 
 void process_input();
 void update();
@@ -17,6 +18,8 @@ bool is_intersecting(VisibleGameObject* A, VisibleGameObject* B);
 
 sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breakout!");
 GameObjectManager game_object_manager;
+BlockManager block_manager;
+
 bool end_game = false;
 
 int main(int argc, char* argv[]) {
@@ -83,11 +86,15 @@ void process_input() {
 
 void update() {
     game_object_manager.update_all();
+    block_manager.update_all();
 }
 
 void render() {
     main_window.clear(sf::Color(255, 255, 255));
+
     game_object_manager.draw_all(main_window);
+    block_manager.draw_all(main_window);
+
     main_window.display();
 }
 

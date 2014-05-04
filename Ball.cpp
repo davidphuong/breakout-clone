@@ -2,6 +2,7 @@
 #include "Constant.h"
 #include "GameObjectManager.h"
 #include "VisibleGameObject.h"
+#include "BlockManager.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -39,6 +40,33 @@ void Ball::update() {
         } else if (get_position().x > player->get_right()) {
             // If ball is going to collide with the right side of the paddle
             m_angle = 180 - m_angle;
+        }
+    }
+
+    // Block checks
+    extern BlockManager block_manager;
+
+    for (int i = 0; i < block_manager.get_block_amount(); i++) {
+        Block* ptr = block_manager.get_block(i);
+        if (is_intersecting(this, ptr) == true) {
+            if (get_position().x >= ptr->get_left() && get_position().x <= ptr->get_right()
+                    && get_position().y < ptr->get_position().y) {
+                // If ball is going to collide with the top of the block
+                m_angle = 360 - m_angle;
+            } else if (get_position().x >= ptr->get_left() && get_position().x <= ptr->get_right()
+                    && get_position().y > ptr->get_position().y) {
+                // If ball is going to collide with the bottom of the block
+                m_angle = 360 - m_angle;
+            } else if (get_position().x < ptr->get_left()) {
+                // If ball is going to collide with the left side of the block
+                m_angle = 180 - m_angle;
+            } else if (get_position().x > ptr->get_right()) {
+                // If ball is going to collide with the right side of the block
+                m_angle = 180 - m_angle;
+            }
+
+            // Block has been touched by ball, destroy it
+            block_manager.destroy_block(i);
         }
     }
 

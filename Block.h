@@ -9,7 +9,7 @@ class Block : public VisibleGameObject {
         virtual void update();
 
     private:
-        bool destroy;
+        bool m_destroy;
 };
 
 #endif

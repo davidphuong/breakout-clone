@@ -5,6 +5,8 @@ VisibleGameObject::VisibleGameObject() {
     // Default values
     m_velocity.x = 0;
     m_velocity.y = 0;
+
+    m_sprite.setPosition(0, 0);
 }
 
 void VisibleGameObject::load(std::string filename) {
