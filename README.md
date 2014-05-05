@@ -6,9 +6,10 @@ A Breakout clone written in C++ using SFML 2.1.
 This project was a way for me to learn the basics of game programming.
 
 ## Game Features
+* Use a keyboard or a PS3 controller to play the game.
 
 ## Installation
-Firstly, you need to have `make`, `g++` and the `SFML 2.1` headers and libraries installed. Then clone the game from github and then make and run the game.
+Firstly, you need to have `make`, `g++` and the `SFML 2.1` headers and libraries installed. Then clone the game from GitHub and then make and run the game.
 
 ```bash
 $ git clone https://github.com/davidphuong/breakout-clone.git
