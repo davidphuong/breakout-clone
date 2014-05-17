@@ -20,36 +20,48 @@ sf::RenderWindow main_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Breako
 GameObjectManager game_object_manager;
 BlockManager block_manager;
 
+bool keyboard = true;
 bool end_game = false;
 
 int main(int argc, char* argv[]) {
-
-    // Check that joystick #0 is connected.
-    if (sf::Joystick::isConnected(0)) {
-        std::cout << "Joystick is connected." << std::endl;
-        srand(time(NULL));
-
-        // Initializing game objects.
-        Paddle* player = new Paddle;
-        player->load("images/paddle.png");
-        player->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT - player->get_height());
-        game_object_manager.add("player", player);
-
-        Ball* game_ball = new Ball;
-        game_ball->load("images/ball.png");
-        game_ball->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-        game_object_manager.add("ball", game_ball);
-
-        main_window.setFramerateLimit(60);
-
-        // Game loop
-        while (main_window.isOpen() && end_game == false) {
-            process_input();
-            update();
-            render();
+    for (int i = 1; i < argc; i++) {
+        std::string arg = static_cast<std::string>(argv[i]);
+        if (arg == "-ps3") {
+            keyboard = false;
+            std::cout << "ps3" << std::endl;
         }
-    } else {
-        std::cout << "Joystick is NOT connected." << std::endl;
+    }
+
+    if (keyboard == false) {
+        // Check that joystick #0 is connected.
+        if (sf::Joystick::isConnected(0)) {
+            std::cout << "Joystick is connected." << std::endl;
+        } else {
+            std::cout << "Joystick is NOT connected." << std::endl;
+            return 0;
+        }
+    }
+
+    srand(time(NULL));
+
+    // Initializing game objects.
+    Paddle* player = new Paddle;
+    player->load("images/paddle.png");
+    player->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT - player->get_height());
+    game_object_manager.add("player", player);
+
+    Ball* game_ball = new Ball;
+    game_ball->load("images/ball.png");
+    game_ball->set_position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+    game_object_manager.add("ball", game_ball);
+
+    main_window.setFramerateLimit(60);
+
+    // Game loop
+    while (main_window.isOpen() && end_game == false) {
+        process_input();
+        update();
+        render();
     }
 
     return 0;

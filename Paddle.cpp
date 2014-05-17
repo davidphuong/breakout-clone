@@ -10,20 +10,24 @@ void Paddle::update() {
     sf::Joystick::update();
     m_velocity.x = 0;
 
-    // Joystick value returns from 0 to 100 in the 1st
-    // and 4th quadrants where 100 being directly right.
-    // Joystick value returns from 0 to -100 in the 2nd
-    // and 3rd quadrants where -100 being directly left.
-    float joystick_value = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
-    m_velocity.x = joystick_value * 0.1;
+    extern bool keyboard;
 
-    // if (sf::Joystick::isButtonPressed(0, PS3::LEFT)) {
-    //     m_velocity.x -= 5.0;
-    // }
+    if (keyboard == true) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            m_velocity.x -= 5.0;
+        }
 
-    // if (sf::Joystick::isButtonPressed(0, PS3::RIGHT)) {
-    //     m_velocity.x += 5.0;
-    // }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            m_velocity.x += 5.0;
+        }
+    } else {
+        // Joystick value returns from 0 to 100 in the 1st
+        // and 4th quadrants where 100 being directly right.
+        // Joystick value returns from 0 to -100 in the 2nd
+        // and 3rd quadrants where -100 being directly left.
+        float joystick_value = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+        m_velocity.x = joystick_value * 0.1;
+    }
 
     sf::Vector2f current_pos = get_position();
 
