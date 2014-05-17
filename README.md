@@ -15,7 +15,6 @@ Firstly, you need to have `make`, `g++` and the `SFML 2.1` headers and libraries
 $ git clone https://github.com/davidphuong/breakout-clone.git
 $ cd breakout-clone
 $ make
-$ ./breakout
 ```
 ```bash
 $ ./breakout # Using keyboard
