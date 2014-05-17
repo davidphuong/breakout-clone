@@ -17,6 +17,13 @@ $ cd breakout-clone
 $ make
 $ ./breakout
 ```
+```bash
+$ ./breakout # Using keyboard
+```
+OR
+```bash
+$ ./breakout -ps3 # Using PS3 controller
+```
 
 ## Usage
 ```bash
