@@ -26,8 +26,13 @@ $ ./breakout -ps3 # Using PS3 controller
 
 ## Usage
 ```bash
-Left Arrow Key:     Move Paddle Left
-Right Arrow Key:    Move Paddle Right
+# Keyboard Controls
+Left Arrow Key:         Move Paddle Left
+Right Arrow Key:        Move Paddle Right
+
+# PS3 Controls
+Move LJoystick left:    Move Paddle Left
+Move LJoystick right:   Move Paddle Right
 ```
 
 ## License
